@@ -9,6 +9,10 @@ cmake_minimum_required(VERSION 3.4.1)
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
+
+include_directories(src/main/cpp/include/)
+include_directories(src/main/cpp/ffmpeg3/include/)
+
 add_library( # Sets the name of the library.
              test-lib
 
@@ -17,6 +21,15 @@ add_library( # Sets the name of the library.
 
              # Provides a relative path to your source file(s).
              src/main/cpp/Test.cpp )
+
+#add_library( # Sets the name of the library.
+#             VideoPlayer
+
+             # Sets the library as a shared library.
+#             SHARED
+
+             # Provides a relative path to your source file(s).
+#             src/main/cpp/VideoPlayer.cpp )
 
               add_library(avcodec-lib  SHARED IMPORTED )
               set_target_properties(avcodec-lib PROPERTIES IMPORTED_LOCATION
@@ -53,16 +66,14 @@ find_library( # Sets the name of the path variable.
               # you want CMake to locate.
               log )
 
-include_directories(src/main/cpp/include/)
-include_directories(src/main/cpp/ffmpeg3/include/)
-
-
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries(
                         test-lib
+                        android
+#                        VideoPlayer
                         avcodec-lib
                         avdevice-lib
                         avfilter-lib
